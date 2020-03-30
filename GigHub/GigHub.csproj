@@ -206,9 +206,14 @@
     <Compile Include="Migrations\202003271411033_testVitualGenre.Designer.cs">
       <DependentUpon>202003271411033_testVitualGenre.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003300844414_CreatedAttendance.cs" />
+    <Compile Include="Migrations\202003300844414_CreatedAttendance.Designer.cs">
+      <DependentUpon>202003300844414_CreatedAttendance.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -317,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003271411033_testVitualGenre.resx">
       <DependentUpon>202003271411033_testVitualGenre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003300844414_CreatedAttendance.resx">
+      <DependentUpon>202003300844414_CreatedAttendance.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
