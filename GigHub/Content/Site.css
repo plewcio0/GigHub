@@ -30,7 +30,10 @@ body {
     font-family: "Roboto","Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
 }
-
+.buttonContainer {
+    align-self: flex-end;
+    margin-left: 10px;
+}
 .form-control {
     border-radius: 10px;
     height: 37px;
@@ -47,7 +50,9 @@ body {
 .form-group {
     margin-bottom: 20px;
 }
+.going {
 
+}
 .navbar-inverse {
     background-color: #ff4342;
     border-color: #ff4342;

@@ -179,9 +179,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
+    <Compile Include="Controllers\FollowingsController.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Dtos\AttendanceDto.cs" />
+    <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -221,10 +224,27 @@
     <Compile Include="Migrations\202003300844414_CreatedAttendance.Designer.cs">
       <DependentUpon>202003300844414_CreatedAttendance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003301036429_AddFollowings.cs" />
+    <Compile Include="Migrations\202003301036429_AddFollowings.Designer.cs">
+      <DependentUpon>202003301036429_AddFollowings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003301110321_AddFollowings1.cs" />
+    <Compile Include="Migrations\202003301110321_AddFollowings1.Designer.cs">
+      <DependentUpon>202003301110321_AddFollowings1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003301124576_AddFollowings2.cs" />
+    <Compile Include="Migrations\202003301124576_AddFollowings2.Designer.cs">
+      <DependentUpon>202003301124576_AddFollowings2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003301129084_xxx.cs" />
+    <Compile Include="Migrations\202003301129084_xxx.Designer.cs">
+      <DependentUpon>202003301129084_xxx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Attendance.cs" />
+    <Compile Include="Models\Following.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -336,6 +356,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003300844414_CreatedAttendance.resx">
       <DependentUpon>202003300844414_CreatedAttendance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003301036429_AddFollowings.resx">
+      <DependentUpon>202003301036429_AddFollowings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003301110321_AddFollowings1.resx">
+      <DependentUpon>202003301110321_AddFollowings1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003301124576_AddFollowings2.resx">
+      <DependentUpon>202003301124576_AddFollowings2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003301129084_xxx.resx">
+      <DependentUpon>202003301129084_xxx.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

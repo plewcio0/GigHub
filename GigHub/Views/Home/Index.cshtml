@@ -12,12 +12,49 @@
             <div class="day">@gig.DateTime.ToString("d ")</div>
         </div>
         <div class="infoContainer">
-            <span class="infoContainer__Artist">@gig.Artist.Name</span>
+            <span class="infoContainer__Artist">
+                @gig.Artist.Name <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@gig.ArtistId">Follow</button>
+            </span>
             <span class="infoContainer__Genre">@gig.Genre.Name</span>
         </div>
+        <div class="buttonContainer">
+            <button data-gig-id="@gig.Id" class="js-toggle-attendance btn btn-default btn-sm pull-right">Going?</button>
+        </div>
     </div>
-    <hr style="border: 1px solid gray"/>
+    <hr style="border: 1px solid gray" />
 }
 
 
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.js-toggle-attendance').click(function (e) {
+                var button = $(e.target);
+                $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
+                    .done(function () {
+                        button
+                            .removeClass("btn-default")
+                            .addClass("btn-info")
+                            .text("Going");
 
+                    })
+                    .fail(function (xhr) {
+                        alert(xhr.responseText);
+
+                    })
+            })
+
+            $('.js-toggle-follow').click(function (e) {
+                var button = $(e.target);
+                $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                    .done(function () {
+                        button.text("Following")
+                    })
+                    .fail(function (xhr) {
+                        alert(xhr.responseText);
+                    })
+            })
+        });
+    </script>
+}
