@@ -30,18 +30,22 @@ body {
     font-family: "Roboto","Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
 }
+
 .buttonsContainer {
     align-self: flex-end;
     margin-left: 10px;
     display: flex;
     flex-direction: column;
 }
+
 .button__going {
     border-radius: 10px;
 }
+
 .button__follow {
     text-decoration: underline;
 }
+
 .form-control {
     border-radius: 10px;
     height: 37px;
@@ -58,9 +62,32 @@ body {
 .form-group {
     margin-bottom: 20px;
 }
-.going {
 
+.going {
 }
+
+.gigContainer > .infoContainer .infoContainer__actions {
+    display: none;
+}
+
+.gigContainer:hover > .infoContainer .infoContainer__actions {
+    display: block;
+}
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    justify-content: flex-start;
+}
+
+.infoContainer__Artist {
+    font-weight: bold;
+}
+
+.infoContainer__Genre {
+    font-size: 0.9em;
+}
+
 .navbar-inverse {
     background-color: #ff4342;
     border-color: #ff4342;
@@ -109,7 +136,6 @@ body {
     width: 60px;
     color: white;
     text-align: center;
-
     border-bottom: none;
     font-size: 0.9em;
 }
@@ -117,8 +143,7 @@ body {
 .day {
     width: 60px;
     text-align: center;
-    height: 35px;
-
+    height: 45px;
     border-radius: 0 0 10px 10px;
     display: flex;
     justify-content: center;
@@ -126,18 +151,4 @@ body {
     color: black;
     font-size: 1.2em;
     background-color: lightgray;
-}
-
-.infoContainer {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-    justify-content: space-around;
-    padding: 5px 0 5px 0;
-}
-.infoContainer__Artist {
-    font-weight: bold;
-}
-.infoContainer__Genre {
-    font-size: 0.9em;
 }
