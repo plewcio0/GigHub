@@ -3,7 +3,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<h1>All upcoming Gigs!</h1>
+<h1>@Model.Heading</h1>
 @foreach (var gig in Model.UpcomingGigs)
 {
     <div class="gigContainer">
@@ -14,16 +14,15 @@
         <div class="infoContainer">
             <span class="infoContainer__Artist">
                 @gig.Artist.Name
-                @if (Model.ShowActions)
+                @if (Model.ShowActions && User.Identity.IsAuthenticated)
                 {
                     <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@gig.ArtistId">Follow</button>
-
                 }
 
             </span>
             <span class="infoContainer__Genre">@gig.Genre.Name</span>
         </div>
-        @if (Model.ShowActions)
+        @if (Model.ShowActions && User.Identity.IsAuthenticated)
         {
             <div class="buttonContainer">
                 <button data-gig-id="@gig.Id" class="js-toggle-attendance btn btn-default btn-sm pull-right">Going?</button>

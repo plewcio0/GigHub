@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace GigHub.Controllers
 {
+    [Authorize]
     public class FolloweesController : Controller
     {
         private ApplicationDbContext _context;
