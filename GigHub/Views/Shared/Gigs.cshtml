@@ -14,18 +14,14 @@
         <div class="infoContainer">
             <span class="infoContainer__Artist">
                 @gig.Artist.Name
-                @if (Model.ShowActions && User.Identity.IsAuthenticated)
-                {
-                    <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@gig.ArtistId">Follow</button>
-                }
-
             </span>
             <span class="infoContainer__Genre">@gig.Genre.Name</span>
         </div>
         @if (Model.ShowActions && User.Identity.IsAuthenticated)
         {
-            <div class="buttonContainer">
-                <button data-gig-id="@gig.Id" class="js-toggle-attendance btn btn-default btn-sm pull-right">Going?</button>
+            <div class="buttonsContainer">
+                <button class="button__follow btn btn-link btn-sm js-toggle-follow" data-user-id="@gig.ArtistId">Follow</button>
+                <button data-gig-id="@gig.Id" class="button__going js-toggle-attendance btn btn-default btn-sm pull-right">Going?</button>
             </div>
         }
     </div>

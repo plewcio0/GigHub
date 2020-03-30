@@ -30,9 +30,17 @@ body {
     font-family: "Roboto","Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
 }
-.buttonContainer {
+.buttonsContainer {
     align-self: flex-end;
     margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.button__going {
+    border-radius: 10px;
+}
+.button__follow {
+    text-decoration: underline;
 }
 .form-control {
     border-radius: 10px;
@@ -101,7 +109,7 @@ body {
     width: 60px;
     color: white;
     text-align: center;
-    border: 2px solid gray;
+
     border-bottom: none;
     font-size: 0.9em;
 }
@@ -110,13 +118,14 @@ body {
     width: 60px;
     text-align: center;
     height: 35px;
-    border: 2px solid gray;
+
     border-radius: 0 0 10px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: black;
     font-size: 1.2em;
+    background-color: lightgray;
 }
 
 .infoContainer {
