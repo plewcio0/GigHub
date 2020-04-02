@@ -20,9 +20,10 @@ namespace GigHub.Controllers
         {
             var viewModel = new GigFormViewModel
             {
-                Genres = _context.Genres.ToList()
+                Genres = _context.Genres.ToList(),
+                Heading = "Create a Gig."
             };
-            return View(viewModel);
+            return View("GigForm", viewModel);
         }
 
         [Authorize]
@@ -33,12 +34,14 @@ namespace GigHub.Controllers
             var viewModel = new GigFormViewModel
             {
                 Genres = _context.Genres.ToList(),
-                Date = gigToEdit.DateTime.ToString("d.MM.yyyy"),
+                Date = gigToEdit.DateTime.ToString("dd.MM.yyyy"),
                 Time = gigToEdit.DateTime.ToString("HH:mm"),
                 Venue = gigToEdit.Venue,
-                Genre = gigToEdit.GenreId
+                Genre = gigToEdit.GenreId,
+                Heading = "Edit a Gig"
+
             };
-            return View("Create", viewModel);
+            return View("GigForm", viewModel);
         }
 
         [Authorize]
