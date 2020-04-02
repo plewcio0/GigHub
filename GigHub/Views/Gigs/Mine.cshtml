@@ -21,9 +21,38 @@
                 @gig.Genre.Name
             </span>
             <div class="infoContainer__actions">
-                <a href="@Url.Action("Edit", "Gigs", new { id = gig.Id })">Edit</a> 
+                <a href="@Url.Action("Edit", "Gigs", new { id = gig.Id })">Edit</a>
+                |
+                <a href="#" class="js-cancel-gig" data-gig-id=@gig.Id>Cancel</a>
             </div>
         </div>
     </div>
-    <hr style="border: 1px solid gray" />
+}
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('.js-cancel-gig').click(function (e) {
+                var link = $(e.target);
+                if (alertify.confirm("Are you sure?", function () {
+                    $.ajax({
+                        url: "/api/gigs/" + link.attr("data-gig-id"),
+                        method: "DELETE"
+
+                    }).done(function () {
+                        link.parent().parent().parent(".gigContainer").fadeOut(function () {
+                            $(this).remove();
+                        })
+                    }).fail(function () {
+                        alertify.alert("Something went wrong!");
+                    })
+                })) {
+
+                }
+            })
+        })
+
+    </script>
+
 }
