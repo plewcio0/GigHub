@@ -11,6 +11,7 @@ namespace GigHub.Controllers
     public class GigsController : Controller
     {
         private readonly ApplicationDbContext _context;
+
         public GigsController()
         {
             _context = new ApplicationDbContext();
@@ -33,6 +34,7 @@ namespace GigHub.Controllers
             var gigToEdit = _context.Gigs.Single(g => g.Id == id && g.ArtistId == userId);
             var viewModel = new GigFormViewModel
             {
+                Id = gigToEdit.Id,
                 Genres = _context.Genres.ToList(),
                 Date = gigToEdit.DateTime.ToString("dd.MM.yyyy"),
                 Time = gigToEdit.DateTime.ToString("HH:mm"),
@@ -52,16 +54,37 @@ namespace GigHub.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.Genres = _context.Genres.ToList();
-                return View("Create", viewModel);
+                return View("GigForm", viewModel);
             }
             var gig = new Gig
             {
                 ArtistId = User.Identity.GetUserId(),
                 DateTime = viewModel.GetDateTime(),
                 GenreId = viewModel.Genre,
-                Venue = viewModel.Venue
+                Venue = viewModel.Venue,
+
+
             };
             _context.Gigs.Add(gig);
+            _context.SaveChanges();
+            return RedirectToAction("Mine", "Gigs");
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(GigFormViewModel viewModel)
+        {
+            var userId = User.Identity.GetUserId();
+            if (!ModelState.IsValid)
+            {
+                viewModel.Genres = _context.Genres.ToList();
+                return View("GigForm", viewModel);
+            }
+            var gig = _context.Gigs.Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
+            gig.DateTime = viewModel.GetDateTime();
+            gig.Venue = viewModel.Venue;
+            gig.GenreId = viewModel.Genre;
             _context.SaveChanges();
             return RedirectToAction("Mine", "Gigs");
         }
