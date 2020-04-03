@@ -188,6 +188,13 @@
     <Compile Include="Migrations\202004021508431_AddSOftDeleteOption.Designer.cs">
       <DependentUpon>202004021508431_AddSOftDeleteOption.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004031541494_AddNotifications.cs" />
+    <Compile Include="Migrations\202004031541494_AddNotifications.Designer.cs">
+      <DependentUpon>202004031541494_AddNotifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationType.cs" />
+    <Compile Include="Models\UserNotification.cs" />
     <Compile Include="ViewModels\GigsViewModel.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dtos\AttendanceDto.cs" />
@@ -398,6 +405,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004021508431_AddSOftDeleteOption.resx">
       <DependentUpon>202004021508431_AddSOftDeleteOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004031541494_AddNotifications.resx">
+      <DependentUpon>202004031541494_AddNotifications.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

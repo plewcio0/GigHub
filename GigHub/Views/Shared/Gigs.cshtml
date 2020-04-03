@@ -51,8 +51,7 @@
 
                     })
                     .fail(function (xhr) {
-                        alert(xhr.responseText);
-
+                        alertify.alert(xhr.responseJSON.Message);
                     })
             })
 
@@ -63,7 +62,7 @@
                         button.text("Following")
                     })
                     .fail(function (xhr) {
-                        alert(xhr.responseText);
+                        alertify.alert(xhr.responseJSON.Message);
                     })
             })
         });
