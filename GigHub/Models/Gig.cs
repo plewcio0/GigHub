@@ -18,6 +18,8 @@ namespace GigHub.Models
         [StringLength(255)]
         public string Venue { get; set; }
 
+        public bool IsCanceled { get; set; }
+
         public Genre Genre { get; set; }
 
         [Required]

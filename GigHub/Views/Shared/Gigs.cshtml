@@ -1,0 +1,71 @@
+﻿@model GigHub.ViewModels.GigsViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h1>@Model.Heading</h1>
+@foreach (var gig in Model.UpcomingGigs)
+{
+    <div class="gigContainer">
+        <div class="calendar">
+            <div class="month">@gig.DateTime.ToString("MMM")</div>
+            <div class="day">@gig.DateTime.ToString("d ")</div>
+        </div>
+        <div class="infoContainer">
+            <span class="infoContainer__Artist">
+                @gig.Artist.Name
+                @if (gig.IsCanceled)
+                {
+                    <span class="label label-warning">Canceled</span>
+                }
+            </span>
+            <span class="infoContainer__Genre">@gig.Genre.Name</span>
+        </div>
+        @if (Model.ShowActions && User.Identity.IsAuthenticated)
+        {
+            <div class="buttonsContainer">
+                <button class="button__follow btn btn-link btn-sm js-toggle-follow" data-user-id="@gig.ArtistId">Follow</button>
+                @if (!gig.IsCanceled)
+                {
+                    <button data-gig-id="@gig.Id" class="button__going js-toggle-attendance btn btn-default btn-sm pull-right">Going?</button>
+                }
+            </div>
+        }
+    </div>
+    <hr style="border: 1px solid gray" />
+}
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.js-toggle-attendance').click(function (e) {
+                var button = $(e.target);
+                $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
+                    .done(function () {
+                        button
+                            .removeClass("btn-default")
+                            .addClass("btn-info")
+                            .text("Going");
+
+                    })
+                    .fail(function (xhr) {
+                        alert(xhr.responseText);
+
+                    })
+            })
+
+            $('.js-toggle-follow').click(function (e) {
+                var button = $(e.target);
+                $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                    .done(function () {
+                        button.text("Following")
+                    })
+                    .fail(function (xhr) {
+                        alert(xhr.responseText);
+                    })
+            })
+        });
+    </script>
+}

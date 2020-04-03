@@ -49,12 +49,21 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -162,15 +171,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Api\GigsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\AttendancesController.cs" />
+    <Compile Include="Controllers\FolloweesController.cs" />
+    <Compile Include="Controllers\Api\FollowingsController.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Migrations\202004021508431_AddSOftDeleteOption.cs" />
+    <Compile Include="Migrations\202004021508431_AddSOftDeleteOption.Designer.cs">
+      <DependentUpon>202004021508431_AddSOftDeleteOption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\GigsViewModel.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Dtos\AttendanceDto.cs" />
+    <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -198,9 +219,39 @@
     <Compile Include="Migrations\202003261418426_AddForeignKeysToGig.Designer.cs">
       <DependentUpon>202003261418426_AddForeignKeysToGig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003271241401_AddNameToApplicationUser.cs" />
+    <Compile Include="Migrations\202003271241401_AddNameToApplicationUser.Designer.cs">
+      <DependentUpon>202003271241401_AddNameToApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003271411033_testVitualGenre.cs" />
+    <Compile Include="Migrations\202003271411033_testVitualGenre.Designer.cs">
+      <DependentUpon>202003271411033_testVitualGenre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003300844414_CreatedAttendance.cs" />
+    <Compile Include="Migrations\202003300844414_CreatedAttendance.Designer.cs">
+      <DependentUpon>202003300844414_CreatedAttendance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003301036429_AddFollowings.cs" />
+    <Compile Include="Migrations\202003301036429_AddFollowings.Designer.cs">
+      <DependentUpon>202003301036429_AddFollowings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003301110321_AddFollowings1.cs" />
+    <Compile Include="Migrations\202003301110321_AddFollowings1.Designer.cs">
+      <DependentUpon>202003301110321_AddFollowings1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003301124576_AddFollowings2.cs" />
+    <Compile Include="Migrations\202003301124576_AddFollowings2.Designer.cs">
+      <DependentUpon>202003301124576_AddFollowings2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003301129084_xxx.cs" />
+    <Compile Include="Migrations\202003301129084_xxx.Designer.cs">
+      <DependentUpon>202003301129084_xxx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\Attendance.cs" />
+    <Compile Include="Models\Following.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -211,14 +262,33 @@
     <Compile Include="ViewModels\GigFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\alertifyjs\alertify.css" />
+    <Content Include="Content\alertifyjs\alertify.min.css" />
+    <Content Include="Content\alertifyjs\alertify.rtl.css" />
+    <Content Include="Content\alertifyjs\alertify.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.min.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\default.css" />
+    <Content Include="Content\alertifyjs\themes\default.min.css" />
+    <Content Include="Content\alertifyjs\themes\default.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\default.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.min.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.rtl.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\alertify.js" />
+    <Content Include="Scripts\alertify.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -245,7 +315,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Gigs.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -266,7 +336,9 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Gigs\Create.cshtml" />
+    <Content Include="Views\Gigs\GigForm.cshtml" />
+    <Content Include="Views\Followees\Index.cshtml" />
+    <Content Include="Views\Gigs\Mine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -302,6 +374,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003261418426_AddForeignKeysToGig.resx">
       <DependentUpon>202003261418426_AddForeignKeysToGig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003271241401_AddNameToApplicationUser.resx">
+      <DependentUpon>202003271241401_AddNameToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003271411033_testVitualGenre.resx">
+      <DependentUpon>202003271411033_testVitualGenre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003300844414_CreatedAttendance.resx">
+      <DependentUpon>202003300844414_CreatedAttendance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003301036429_AddFollowings.resx">
+      <DependentUpon>202003301036429_AddFollowings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003301110321_AddFollowings1.resx">
+      <DependentUpon>202003301110321_AddFollowings1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003301124576_AddFollowings2.resx">
+      <DependentUpon>202003301124576_AddFollowings2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003301129084_xxx.resx">
+      <DependentUpon>202003301129084_xxx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004021508431_AddSOftDeleteOption.resx">
+      <DependentUpon>202004021508431_AddSOftDeleteOption.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
