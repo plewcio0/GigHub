@@ -67,6 +67,8 @@
     <script>
         $(document).ready(function () {
             $.getJSON("/api/notifications", function (notifications) {
+                if (notifications.length == 0)
+                    return;
                 $('.notifications-count-js')
                     .text(notifications.length)
                     .removeClass('hide')
