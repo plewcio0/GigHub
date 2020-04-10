@@ -73,6 +73,7 @@ body {
 .gigContainer:hover > .infoContainer .infoContainer__actions {
     display: block;
 }
+
 .infoContainer {
     display: flex;
     flex-direction: column;
@@ -105,6 +106,17 @@ body {
     .navbar-inverse .navbar-brand {
         color: white;
     }
+
+    .navbar-inverse .notifications {
+        position: relative;
+    }
+
+        .navbar-inverse .notifications .badge {
+            position: absolute;
+            top: 8px;
+            right: 0;
+            background-color: #a80a0a;
+        }
 
 .navbar-brand {
     padding: 0;
