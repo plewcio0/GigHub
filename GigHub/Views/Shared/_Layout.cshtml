@@ -41,10 +41,47 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/x-template" id="notifications-template">
+        <ul>
+            <%
+            _.each(notifications, function(notification){
+                if(notification.notificationType == 1) {
+                    %>
+                        <li><%= notification.gig.artist.name %> has canceled the gig at <%= notification.gig.venue %> at <%= notification.gig.dateTime %>.</li>
+                    <%
+                }
+                else if (notification.notificationType == 2) {
+                    %>
+                        <li><%= notification.gig.artist.name %> has changed the gig at <%= notification.originalVenue %> at <%= notification.originalDateTime %> to <%= notification.gig.venue %> at <%= notification.gig.dateTime %>.</li>
+                    <%
+                }
+                else if (notification.notificationType == 3) {
+                    %>
+                        <li><%= notification.gig.artist.name %> has created the gig at <%= notification.gig.venue %> at <%= notification.gig.dateTime %>.</li>
+                    <%
+                }
+            })
+            %>
+        </ul>
+    </script>
     <script>
         $(document).ready(function () {
             $.getJSON("/api/notifications", function (notifications) {
-                $('.notifications-count-js').text(notifications.length).removeClass('hide');
+                $('.notifications-count-js')
+                    .text(notifications.length)
+                    .removeClass('hide')
+                    .addClass('animated heartBeat');
+
+                $('.notifications').popover({
+                    html: true,
+                    title: 'Notifications',
+                    content: function () {
+                        var compiled = _.template($('#notifications-template').html());
+                        return compiled({ notifications: notifications });;
+                    },
+                    placement: 'bottom'
+                })
+
             })
         });
     </script>
