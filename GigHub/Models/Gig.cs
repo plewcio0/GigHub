@@ -46,7 +46,12 @@ namespace GigHub.Models
                 userAttending.Notify(notification);
             }
         }
-
+        /// <summary>
+        /// Update upcoming Gig.
+        /// </summary>
+        /// <param name="dateTime">New DateTime of Gig.</param>
+        /// <param name="venue">New Venue.</param>
+        /// <param name="genre">New genre Id.</param>
         internal void Update(DateTime dateTime, string venue, byte genre)
         {
             var notification = Notification.GigUpdated(this, DateTime, Venue);
