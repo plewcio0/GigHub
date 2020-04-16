@@ -38,32 +38,31 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
-    <script type="text/x-template" id="notifications-template">
-        <ul>
-            <%
-            _.each(notifications, function(notification){
-                if(notification.notificationType == 1) {
-                    %>
-                        <li><%= notification.gig.artist.name %> has canceled the gig at <%= notification.gig.venue %> at <%= notification.gig.dateTime %>.</li>
-                    <%
-                }
-                else if (notification.notificationType == 2) {
-                    %>
-                        <li><%= notification.gig.artist.name %> has changed the gig at <%= notification.originalVenue %> at <%= notification.originalDateTime %> to <%= notification.gig.venue %> at <%= notification.gig.dateTime %>.</li>
-                    <%
-                }
-                else if (notification.notificationType == 3) {
-                    %>
-                        <li><%= notification.gig.artist.name %> has created the gig at <%= notification.gig.venue %> at <%= notification.gig.dateTime %>.</li>
-                    <%
-                }
-            })
-            %>
-        </ul>
-    </script>
+<script type="text/x-template" id="notifications-template">
+    <ul class="notifications">
+        <%
+        _.each(notifications, function(notification){
+        if(notification.notificationType == 1) {
+        %>
+        <li><span class="highlight"><%= notification.gig.artist.name %></span> has canceled the gig at <%= notification.gig.venue %> at <%= moment(notification.gig.dateTime).locale('pl').format("ll") %>.</li>
+        <%
+        }
+        else if (notification.notificationType == 2) {
+        %>
+        <li><span class="highlight"><%= notification.gig.artist.name %></span> has changed the gig at <%= notification.originalVenue %> at <%= moment(notification.gig.dateTime).format("ll") %> to <%= notification.gig.venue %> at <%= moment(notification.gig.dateTime).format("ll") %>.</li>
+        <%
+        }
+        else if (notification.notificationType == 3) {
+        %>
+        <li><span class="highlight"><%= notification.gig.artist.name %></span> has created the gig at <%= notification.gig.venue %> at <%= moment(notification.gig.dateTime).format("ll") %>.</li>
+        <%
+        }
+        })
+        %>
+    </ul>
+</script>
     <script>
         $(document).ready(function () {
             $.getJSON("/api/notifications", function (notifications) {
@@ -79,11 +78,24 @@
                     title: 'Notifications',
                     content: function () {
                         var compiled = _.template($('#notifications-template').html());
-                        return compiled({ notifications: notifications });;
+                        var x = compiled({ notifications: notifications });
+                        return x;
                     },
-                    placement: 'bottom'
+                    placement: 'bottom',
+                    trigger: 'focus',
+                    template: '<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
                 })
 
+            })
+
+            $('.notifications').on('show.bs.popover', function () {
+                $.post("/api/notifications/MarkAsRead")
+                    .done(function () {
+                        $('.notifications-count-js')
+                            .text("")
+                            .addClass('hide')
+                            .addClass('animated heartBeat');
+                    })
             })
         });
     </script>
