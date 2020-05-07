@@ -50,6 +50,7 @@ body {
     border-radius: 10px;
     height: 37px;
     font-size: 1.2em;
+    transition: none;
 
     &:focus {
         border-color: #3559ce;
@@ -191,4 +192,8 @@ body {
             font-weight: bold;
         }
     }
+}
+
+#searchGigs {
+    width:300px;
 }

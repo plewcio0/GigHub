@@ -13,7 +13,7 @@ namespace GigHub.Models
         public DbSet<UserNotification> UserNotifications { get; set; }
 
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("GigHub", throwIfV1Schema: false)
         {
         }
 

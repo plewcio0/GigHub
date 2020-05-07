@@ -10,7 +10,6 @@ namespace GigHub.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "GigHub.Models.ApplicationDbContext";
         }
 
         protected override void Seed(GigHub.Models.ApplicationDbContext context)

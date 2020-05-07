@@ -51,7 +51,7 @@
         }
         else if (notification.notificationType == 2) {
         %>
-        <li><span class="highlight"><%= notification.gig.artist.name %></span> has changed the gig at <%= notification.originalVenue %> at <%= moment(notification.gig.dateTime).format("ll") %> to <%= notification.gig.venue %> at <%= moment(notification.gig.dateTime).format("ll") %>.</li>
+        <li><span class="highlight"><%= notification.gig.artist.name %></span> has changed the gig at <%= notification.originalVenue %> at <%= moment(notification.originalDateTime).format("ll") %> to <%= notification.gig.venue %> at <%= moment(notification.gig.dateTime).format("ll") %>.</li>
         <%
         }
         else if (notification.notificationType == 3) {

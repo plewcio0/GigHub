@@ -13,6 +13,7 @@ namespace GigHub.Controllers.Api
         {
             _context = new ApplicationDbContext();
         }
+
         [HttpPost]
         public IHttpActionResult Attend(AttendanceDto gig)
         {
@@ -31,6 +32,21 @@ namespace GigHub.Controllers.Api
             _context.SaveChanges();
 
             return Ok();
+        }
+        [HttpDelete]
+        public IHttpActionResult CancelAttend(int id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var attendance = _context.Attendances.SingleOrDefault(a => a.AttendeeId == userId && a.GigId == id);
+
+            if (attendance == null)
+                return NotFound();
+
+            _context.Attendances
+                .Remove(attendance);
+            _context.SaveChanges();
+            return Ok(id);
         }
     }
 }

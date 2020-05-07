@@ -39,7 +39,8 @@ body {
 .form-control {
   border-radius: 10px;
   height: 37px;
-  font-size: 1.2em; }
+  font-size: 1.2em;
+  transition: none; }
   .form-control:focus {
     border-color: #3559ce;
     outline: 0;
@@ -142,3 +143,6 @@ body {
     border-bottom: none; }
   .popover-notifications ul.notifications > .highlight {
     font-weight: bold; }
+
+#searchGigs {
+  width: 300px; }
