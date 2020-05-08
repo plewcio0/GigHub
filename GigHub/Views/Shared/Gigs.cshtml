@@ -56,38 +56,7 @@
 {
     <script>
         $(document).ready(function () {
-            $('.js-toggle-attendance').click(function (e) {
-                var button = $(e.target);
-                if (button.hasClass("btn-default")) {
-                    $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
-                        .done(function () {
-                            button
-                                .removeClass("btn-default")
-                                .addClass("btn-info")
-                                .text("Going");
-                            alertify.success('You are going to this event.').dismissOthers();
-
-                        })
-                        .fail(function (xhr) {
-                            alertify.alert(xhr.responseJSON.message);
-                        })
-                }
-                else {
-                    $.ajax({
-                        url: "/api/attendances/" + button.attr("data-gig-id"),
-                        method: "delete"
-                    }).done(function () {
-                        button
-                            .removeClass("btn-info")
-                            .addClass("btn-default")
-                            .text("Going?");
-                        alertify.warning('You are not going to this event.').dismissOthers();
-                    }).fail(function (xhr) {
-                        alertify.alert(xhr.responseJSON.message);
-                    })
-                }
-
-            })
+            GigsController.init();
 
             $('.js-toggle-follow').click(function (e) {
                 var button = $(e.target);
