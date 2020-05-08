@@ -2,6 +2,8 @@
 using GigHub.Models;
 using Microsoft.AspNet.Identity;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 namespace GigHub.Controllers.Api
 {
@@ -15,12 +17,12 @@ namespace GigHub.Controllers.Api
         }
 
         [HttpPost]
-        public IHttpActionResult Attend(AttendanceDto gig)
+        public HttpResponseMessage Attend(AttendanceDto gig)
         {
             var userId = User.Identity.GetUserId();
             var exists = _context.Attendances.Any(a => a.AttendeeId == userId && a.GigId == gig.GigId);
             if (exists)
-                return BadRequest("The attendance already exist.");
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Attendance already exist.");
 
             var attendance = new Attendance
             {
@@ -31,22 +33,22 @@ namespace GigHub.Controllers.Api
             _context.Attendances.Add(attendance);
             _context.SaveChanges();
 
-            return Ok();
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
         [HttpDelete]
-        public IHttpActionResult CancelAttend(int id)
+        public HttpResponseMessage CancelAttend(int id)
         {
             var userId = User.Identity.GetUserId();
 
             var attendance = _context.Attendances.SingleOrDefault(a => a.AttendeeId == userId && a.GigId == id);
 
             if (attendance == null)
-                return NotFound();
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Attendance does not exist.");
 
             _context.Attendances
                 .Remove(attendance);
             _context.SaveChanges();
-            return Ok(id);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

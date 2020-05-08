@@ -40,11 +40,7 @@ namespace GigHub.Controllers
                 .ToLookup(a => a.GigId);
 
             var upcomingGigxs = upcomingGigs.ToList();
-            var following = _context.Followings
-                .Where(f => f.FollowerId == userId)
-                .Select(f => f.Followee)
-                .ToList()
-                .ToLookup(f => f.Id);
+
 
             var viewModel = new GigsViewModel
             {
@@ -53,7 +49,6 @@ namespace GigHub.Controllers
                 Heading = "All upcoming Gigs",
                 Attendances = attendances,
                 SearchTerm = query,
-                MyFollowees = following
             };
 
             return View("Gigs", viewModel);

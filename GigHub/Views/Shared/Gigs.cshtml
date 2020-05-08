@@ -17,73 +17,46 @@
     </div>
 
 }
-@foreach (var gig in Model.UpcomingGigs)
-{
-    <div class="gigContainer">
-        <div class="calendar">
-            <div class="month">@gig.DateTime.ToString("MMM")</div>
-            <div class="day">@gig.DateTime.ToString("d ")</div>
-        </div>
-        <div class="infoContainer">
-            <span class="infoContainer__Artist">
-                @Html.ActionLink(gig.Artist.Name, "Details", "Gigs", new { @Id = gig.Id }, null)
-
-                @if (gig.IsCanceled)
-                {
-                    <span class="label label-warning">Canceled</span>
-                }
-            </span>
-            <span class="infoContainer__Genre">@gig.Genre.Name</span>
-        </div>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="buttonsContainer">
-                <button class="button__follow btn btn-link btn-sm js-toggle-follow" data-user-id="@gig.ArtistId">@(Model.MyFollowees.Contains(gig.ArtistId)?"Unfollow":"Follow")</button>
-                @if (Model.ShowActions && !gig.IsCanceled)
-                {
-                    <button data-gig-id="@gig.Id" class="button__going js-toggle-attendance btn @(Model.Attendances.Contains(gig.Id) ? "btn-info" : "btn-default") btn-sm pull-right">
-                        @(Model.Attendances.Contains(gig.Id) ? "Going" : "Going?")
-                    </button>
-                }
+<div id="gigs">
+    @foreach (var gig in Model.UpcomingGigs)
+    {
+        <div class="gigContainer">
+            <div class="calendar">
+                <div class="month">@gig.DateTime.ToString("MMM")</div>
+                <div class="day">@gig.DateTime.ToString("d ")</div>
             </div>
-        }
-    </div>
-    <hr style="border: 1px solid gray" />
-}
+            <div class="infoContainer">
+                <span class="infoContainer__Artist">
+                    @Html.ActionLink(gig.Artist.Name, "Details", "Gigs", new { @Id = gig.Id }, null)
 
+                    @if (gig.IsCanceled)
+                    {
+                        <span class="label label-warning">Canceled</span>
+                    }
+                </span>
+                <span class="infoContainer__Genre">@gig.Genre.Name</span>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="buttonsContainer">
+                    @if (Model.ShowActions && !gig.IsCanceled)
+                    {
+                        <button data-gig-id="@gig.Id" class="button__going js-toggle-attendance btn @(Model.Attendances.Contains(gig.Id) ? "btn-info" : "btn-default") btn-sm pull-right">
+                            @(Model.Attendances.Contains(gig.Id) ? "Going" : "Going?")
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+        <hr style="border: 1px solid gray" />
+    }
+</div>
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            GigsController.init();
-
-            $('.js-toggle-follow').click(function (e) {
-                var button = $(e.target);
-                var buttons = $(`.js-toggle-follow[data-user-id="${button.attr("data-user-id")}"]`);
-                if (button.text() == "Follow") {
-                    $.post("/api/followings", { followeeId: button.attr("data-user-id") })
-                        .done(function () {
-                            buttons.text("Unfollow");
-                            alertify.success('You are following this artist.').dismissOthers();
-                        })
-                        .fail(function (xhr) {
-                            alertify.alert(xhr.responseJSON.message);
-                        })
-                } else {
-                    $.ajax({
-                        url: "/api/followings/" + button.attr("data-user-id"),
-                        method: "delete"
-                    }).done(function () {
-                        buttons.text("Follow");
-                        alertify.warning('You are not following this artist.').dismissOthers();
-
-                    }).fail(function (xhr) {
-                        alertify.alert(xhr.responseJSON.message);
-                    })
-                }
-
-            })
+            GigsController.init('#gigs');
         });
     </script>
 }

@@ -3,22 +3,30 @@
     ViewBag.Title = "Details";
 }
 
-    <h2>
-        @Model.Gig.Artist.Name
-        @if (User.Identity.IsAuthenticated)
+<h2>
+    @Model.Gig.Artist.Name
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (Model.isFollowing)
         {
-            if (Model.isFollowing)
-            {
-                <span class="btn-info btn">Following</span>
-            }
-            else
-            {
-                <span class="btn-primary btn">Follow</span>
-            }
+            <button class="button__going btn-info btn-sm btn js-toggle-follow" data-user-id="@Model.Gig.Artist.Id">Unfollow</button>
         }
-    </h2>
-
+        else
+        {
+            <button class="button__going btn-default btn-sm btn js-toggle-follow" data-user-id="@Model.Gig.Artist.Id">Follow</button>
+        }
+    }
+</h2>
 
 <span>
     Performing at @Model.Gig.Venue on @Model.Gig.DateTime!
 </span>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            FollowingsController.init();
+        });
+    </script>
+}

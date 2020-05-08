@@ -11,7 +11,6 @@ namespace GigHub.ViewModels
         public string Heading { get; set; }
         public string SearchTerm { get; set; }
         public ILookup<int, Attendance> Attendances { get; internal set; }
-        public ILookup<string, ApplicationUser> MyFollowees { get; internal set; }
 
     }
 }
