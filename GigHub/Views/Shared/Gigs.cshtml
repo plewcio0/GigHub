@@ -41,7 +41,7 @@
                 <div class="buttonsContainer">
                     @if (Model.ShowActions && !gig.IsCanceled)
                     {
-                        <button data-gig-id="@gig.Id" class="button__going js-toggle-attendance btn @(Model.Attendances.Contains(gig.Id) ? "btn-info" : "btn-default") btn-sm pull-right">
+                        <button data-gig-id="@gig.Id" class="button__going js-toggle-attendance btn @(Model.Attendances.Contains(gig.Id) ? "btn-info" : "btn-default") btn-sm">
                             @(Model.Attendances.Contains(gig.Id) ? "Going" : "Going?")
                         </button>
                     }
