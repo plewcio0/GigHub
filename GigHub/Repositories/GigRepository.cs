@@ -48,9 +48,5 @@ namespace GigHub.Repositories
         {
             _context.Gigs.Add(gig);
         }
-        public void SaveChanges()
-        {
-            _context.SaveChanges();
-        }
     }
 }

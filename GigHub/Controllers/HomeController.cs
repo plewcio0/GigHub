@@ -22,8 +22,6 @@ namespace GigHub.Controllers
         {
             var upcomingGigs = _context.Gigs
                 .Include(g => g.Artist)
-                .Include(g => g.Artist.Followers)
-                .Include(g => g.Artist.Followees)
                 .Include(g => g.Genre)
                 .Where(g => g.DateTime > DateTime.Now && g.IsCanceled == false);
 
